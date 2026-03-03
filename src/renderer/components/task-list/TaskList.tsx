@@ -13,6 +13,7 @@ import type { Task, CreateTaskPayload } from '@/lib/vikunja-types'
 import { TaskRow } from './TaskRow'
 import { TaskInputParser } from '@/components/task-input/TaskInputParser'
 import { EmptyState } from '@/components/shared/EmptyState'
+import { TaskFilterContext } from './TaskFilterContext'
 import type { ChipData } from '@/components/task-input/TokenChip'
 
 interface TaskListProps {
@@ -479,6 +480,7 @@ export function TaskList({
   )
 
   return (
+    <TaskFilterContext.Provider value={{ filterMyTasks, currentUserId: currentUser?.id }}>
     <div className={cn('flex h-full flex-col', className)} onClick={handleContainerClick}>
       <div
         className="flex items-center justify-between px-6 pb-2 pt-6"
@@ -560,5 +562,6 @@ export function TaskList({
         {children}
       </div>
     </div>
+    </TaskFilterContext.Provider>
   )
 }
